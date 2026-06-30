@@ -21,58 +21,155 @@ const scrollToSection = (sectionId: string) => {
 </script>
 
 <template>
-  <nav class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-slate-950/70 backdrop-blur-xl">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <a href="#" class="flex items-center gap-3 text-sm font-semibold text-ink transition-colors hover:text-success" @click="scrollToSection('hero')">
-          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-fuchsia-500 text-sm font-semibold text-slate-950">R</span>
-          <span>Rushabh Dedhia</span>
-        </a>
+  <nav class="topbar">
+    <div class="container topbar__inner">
+      <a href="#" class="brand" @click="scrollToSection('hero')">
+        <span class="brand__mark">R</span>
+        <span>Rushabh Dedhia</span>
+      </a>
 
-        <div class="hidden items-center gap-2 rounded-full border border-white/10 bg-white/5 p-1.5 md:flex">
-          <button @click="scrollToSection('experience')" class="rounded-full px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-white/10 hover:text-ink">
-            Experience
-          </button>
-          <button @click="scrollToSection('projects')" class="rounded-full px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-white/10 hover:text-ink">
-            Projects
-          </button>
-          <button @click="scrollToSection('skills')" class="rounded-full px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-white/10 hover:text-ink">
-            Skills
-          </button>
-          <a href="mailto:rushabh.lucifer@gmail.com" class="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/15">
-            Contact
-          </a>
-        </div>
-
-        <button
-          @click="toggleMenu"
-          class="rounded-full border border-white/10 bg-white/5 p-2.5 text-ink transition-colors hover:bg-white/10 md:hidden"
-          aria-label="Toggle navigation menu"
-          :aria-expanded="isMenuOpen"
-        >
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path v-if="!isMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+      <div class="topbar__links">
+        <button @click="scrollToSection('experience')">Experience</button>
+        <button @click="scrollToSection('projects')">Projects</button>
+        <button @click="scrollToSection('skills')">Skills</button>
+        <a href="mailto:rushabh.lucifer@gmail.com">Contact</a>
       </div>
 
-      <div v-if="isMenuOpen" class="border-t border-white/10 py-4 md:hidden">
-        <div class="flex flex-col gap-2">
-          <button @click="scrollToSection('experience')" class="rounded-2xl px-3 py-2 text-left text-sm font-medium text-ink-soft transition-colors hover:bg-white/10 hover:text-ink">
-            Experience
-          </button>
-          <button @click="scrollToSection('projects')" class="rounded-2xl px-3 py-2 text-left text-sm font-medium text-ink-soft transition-colors hover:bg-white/10 hover:text-ink">
-            Projects
-          </button>
-          <button @click="scrollToSection('skills')" class="rounded-2xl px-3 py-2 text-left text-sm font-medium text-ink-soft transition-colors hover:bg-white/10 hover:text-ink">
-            Skills
-          </button>
-          <a href="mailto:rushabh.lucifer@gmail.com" class="mt-2 inline-flex items-center justify-center rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white">
-            Contact
-          </a>
-        </div>
-      </div>
+      <button
+        @click="toggleMenu"
+        class="mobile-toggle"
+        aria-label="Toggle navigation menu"
+        :aria-expanded="isMenuOpen"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path v-if="!isMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div v-if="isMenuOpen" class="mobile-menu">
+      <button @click="scrollToSection('experience')">Experience</button>
+      <button @click="scrollToSection('projects')">Projects</button>
+      <button @click="scrollToSection('skills')">Skills</button>
+      <a href="mailto:rushabh.lucifer@gmail.com">Contact</a>
     </div>
   </nav>
 </template>
+
+<style scoped>
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(5, 8, 22, 0.75);
+  backdrop-filter: blur(18px);
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4rem;
+  padding: 0 1.25rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.brand__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #040816;
+  font-weight: 700;
+}
+
+.topbar__links {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.topbar__links button,
+.topbar__links a,
+.mobile-menu button,
+.mobile-menu a {
+  border: 0;
+  background: transparent;
+  color: var(--text-soft);
+  font: inherit;
+  padding: 0.6rem 0.95rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.topbar__links button:hover,
+.topbar__links a:hover,
+.mobile-menu button:hover,
+.mobile-menu a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.topbar__links a,
+.mobile-menu a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.mobile-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.mobile-toggle svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1.25rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 768px) {
+  .topbar__links {
+    display: inline-flex;
+  }
+
+  .mobile-toggle,
+  .mobile-menu {
+    display: none;
+  }
+}
+</style>

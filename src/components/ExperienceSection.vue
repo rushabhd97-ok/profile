@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import SectionHeading from '@/components/SectionHeading.vue'
+
 interface ExperienceItem {
   id: number
   company: string
@@ -15,56 +17,42 @@ defineProps<{
 </script>
 
 <template>
-  <section id="experience" class="px-4 py-24 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="mb-12 max-w-2xl">
-        <p class="font-caption-mono mb-3 text-success">Career path</p>
-        <h2 class="section-title">
-          Experience shaping thoughtful product interfaces.
-        </h2>
-        <p class="section-subtitle mt-4">
-          My work has centered on turning complex product needs into elegant, reliable user experiences that feel calm and effortless.
-        </p>
-      </div>
+  <section id="experience" class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Career path"
+        title="Experience shaping thoughtful product interfaces."
+        description="My work has centered on turning complex product needs into elegant, reliable user experiences that feel calm and effortless."
+      />
 
-      <div class="space-y-5">
-        <div v-for="(exp, index) in experiences" :key="exp.id" class="relative">
-          <div v-if="index < experiences.length - 1" class="absolute left-6 top-16 bottom-[-1.25rem] w-px bg-white/10" />
+      <div class="timeline">
+        <div v-for="(exp, index) in experiences" :key="exp.id" class="timeline__item">
+          <div v-if="index < experiences.length - 1" class="timeline__connector" />
 
-          <div class="flex gap-5">
-            <div class="flex flex-col items-center pt-1">
-              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-fuchsia-500 text-sm font-semibold text-slate-950 shadow-[0_10px_24px_rgba(34,211,238,0.24)]">
-                {{ index + 1 }}
+          <div class="timeline__marker">{{ index + 1 }}</div>
+
+          <div class="timeline__card card">
+            <div class="timeline__header">
+              <div>
+                <h3>{{ exp.position }}</h3>
+                <p class="timeline__company">{{ exp.company }}</p>
               </div>
+              <p class="timeline__period">{{ exp.period }}</p>
             </div>
 
-            <div class="flex-1 pb-2">
-              <div class="card">
-                <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                  <div>
-                    <h3 class="text-xl font-semibold text-ink">{{ exp.position }}</h3>
-                    <p class="mt-1 text-base font-medium text-success">{{ exp.company }}</p>
-                  </div>
-                  <p class="font-caption-mono text-ink-mute">{{ exp.period }}</p>
-                </div>
+            <p class="timeline__description">{{ exp.description }}</p>
 
-                <p class="mt-5 text-base leading-8 text-ink-soft">{{ exp.description }}</p>
+            <div v-if="exp.highlights.length > 0" class="timeline__list">
+              <ul>
+                <li v-for="(highlight, idx) in exp.highlights" :key="idx">
+                  <span class="timeline__bullet" />
+                  <span>{{ highlight }}</span>
+                </li>
+              </ul>
+            </div>
 
-                <div v-if="exp.highlights.length > 0" class="mt-6">
-                  <ul class="space-y-3">
-                    <li v-for="(highlight, idx) in exp.highlights" :key="idx" class="flex gap-3 text-sm leading-7 text-ink-soft">
-                      <span class="mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-success" />
-                      <span>{{ highlight }}</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div v-if="exp.technologies.length > 0" class="mt-6 flex flex-wrap gap-2">
-                  <span v-for="tech in exp.technologies" :key="tech" class="rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-xs font-medium text-ink-soft">
-                    {{ tech }}
-                  </span>
-                </div>
-              </div>
+            <div v-if="exp.technologies.length > 0" class="timeline__tags">
+              <span v-for="tech in exp.technologies" :key="tech">{{ tech }}</span>
             </div>
           </div>
         </div>
@@ -72,3 +60,123 @@ defineProps<{
     </div>
   </section>
 </template>
+
+<style scoped>
+.timeline {
+  display: grid;
+  gap: 1rem;
+}
+
+.timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.timeline__connector {
+  position: absolute;
+  left: 1.5rem;
+  top: 3rem;
+  bottom: -1rem;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.timeline__marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #040816;
+  font-weight: 700;
+  box-shadow: 0 14px 32px rgba(96, 165, 250, 0.24);
+}
+
+.timeline__card {
+  padding: 1.35rem;
+}
+
+.timeline__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.timeline__header h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.timeline__company {
+  margin-top: 0.25rem;
+  color: var(--success);
+  font-weight: 600;
+}
+
+.timeline__period {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.timeline__description {
+  margin-top: 1rem;
+  line-height: 1.75;
+}
+
+.timeline__list {
+  margin-top: 1.15rem;
+}
+
+.timeline__list ul {
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.timeline__list li {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+
+.timeline__bullet {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: var(--success);
+  margin-top: 0.45rem;
+  flex-shrink: 0;
+}
+
+.timeline__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+.timeline__tags span {
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-soft);
+  font-size: 0.86rem;
+}
+
+@media (min-width: 768px) {
+  .timeline__header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+</style>

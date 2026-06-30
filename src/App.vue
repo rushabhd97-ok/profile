@@ -78,7 +78,7 @@ const projects = [
     id: 3,
     title: 'Next.js Commerce Experience',
     description: 'Delivered a scalable storefront experience with attention to speed, clarity, and maintainability.',
-    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'AWS'],
+    tags: ['Next.js', 'React', 'TypeScript', 'CSS', 'AWS'],
     highlights: [
       'Created an extensible component system for fast feature delivery.',
       'Optimized the app experience around Core Web Vitals and efficient rendering.',
@@ -100,10 +100,10 @@ const projects = [
 </script>
 
 <template>
-  <div class="min-h-screen bg-canvas-soft text-ink">
+  <div class="page-shell">
     <Navigation />
 
-    <main class="relative z-10 overflow-hidden">
+    <main>
       <HeroSection />
       <ExperienceSection :experiences="experiences" />
       <ProjectsSection :projects="projects" />

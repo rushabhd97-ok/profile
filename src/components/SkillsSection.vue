@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import SectionHeading from '@/components/SectionHeading.vue'
+
 interface Skill {
   category: string
   items: string[]
@@ -11,7 +13,7 @@ const skills: Skill[] = [
   },
   {
     category: 'Languages & Core',
-    items: ['JavaScript (ES6+)', 'TypeScript', 'HTML5', 'CSS3', 'Sass', 'Tailwind CSS'],
+    items: ['JavaScript (ES6+)', 'TypeScript', 'HTML5', 'CSS3', 'Sass', 'CSS architecture'],
   },
   {
     category: 'Data Visualization',
@@ -33,47 +35,117 @@ const skills: Skill[] = [
 </script>
 
 <template>
-  <section id="skills" class="px-4 py-24 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl">
-      <div class="mb-12 max-w-2xl">
-        <p class="font-caption-mono mb-3 text-success">Core competencies</p>
-        <h2 class="section-title">
-          Modern tooling, thoughtful systems, and product-minded execution.
-        </h2>
-        <p class="section-subtitle mt-4">
-          I bring a pragmatic mix of UI craft, engineering discipline, and collaboration to teams that care about quality and momentum.
-        </p>
-      </div>
+  <section id="skills" class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Core competencies"
+        title="Modern tooling, thoughtful systems, and product-minded execution."
+        description="I bring a pragmatic mix of UI craft, engineering discipline, and collaboration to teams that care about quality and momentum."
+      />
 
-      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        <div v-for="skillGroup in skills" :key="skillGroup.category" class="card">
-          <h3 class="text-lg font-semibold text-ink">{{ skillGroup.category }}</h3>
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span v-for="skill in skillGroup.items" :key="skill" class="rounded-full border border-white/10 bg-white/8 px-3 py-1.5 text-sm font-medium text-ink-soft">
-              {{ skill }}
-            </span>
+      <div class="skill-grid">
+        <div v-for="skillGroup in skills" :key="skillGroup.category" class="skill-card card">
+          <h3>{{ skillGroup.category }}</h3>
+          <div class="skill-card__items">
+            <span v-for="skill in skillGroup.items" :key="skill">{{ skill }}</span>
           </div>
         </div>
       </div>
 
-      <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <div class="rounded-[1.25rem] border border-white/10 bg-white/8 p-5 text-center shadow-[0_10px_24px_rgba(2,6,23,0.25)]">
-          <p class="text-3xl font-semibold text-ink">6+</p>
-          <p class="mt-2 text-sm text-ink-soft">Years of experience</p>
+      <div class="stats-grid">
+        <div class="stat-card card card--soft">
+          <p>6+</p>
+          <span>Years of experience</span>
         </div>
-        <div class="rounded-[1.25rem] border border-white/10 bg-white/8 p-5 text-center shadow-[0_10px_24px_rgba(2,6,23,0.25)]">
-          <p class="text-3xl font-semibold text-ink">10+</p>
-          <p class="mt-2 text-sm text-ink-soft">Major projects shipped</p>
+        <div class="stat-card card card--soft">
+          <p>10+</p>
+          <span>Major projects shipped</span>
         </div>
-        <div class="rounded-[1.25rem] border border-white/10 bg-white/8 p-5 text-center shadow-[0_10px_24px_rgba(2,6,23,0.25)]">
-          <p class="text-3xl font-semibold text-ink">3</p>
-          <p class="mt-2 text-sm text-ink-soft">Teams led</p>
+        <div class="stat-card card card--soft">
+          <p>3</p>
+          <span>Teams led</span>
         </div>
-        <div class="rounded-[1.25rem] border border-white/10 bg-white/8 p-5 text-center shadow-[0_10px_24px_rgba(2,6,23,0.25)]">
-          <p class="text-3xl font-semibold text-ink">15+</p>
-          <p class="mt-2 text-sm text-ink-soft">Technologies used</p>
+        <div class="stat-card card card--soft">
+          <p>15+</p>
+          <span>Technologies used</span>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.skill-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.skill-card {
+  padding: 1.35rem;
+}
+
+.skill-card h3 {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.skill-card__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.skill-card__items span {
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+.stats-grid {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1.2rem;
+}
+
+.stat-card {
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stat-card span {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: var(--text-soft);
+}
+
+@media (min-width: 768px) {
+  .skill-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .skill-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+</style>
