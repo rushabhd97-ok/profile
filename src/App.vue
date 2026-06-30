@@ -103,7 +103,7 @@ const projects = [
   <div class="min-h-screen bg-canvas-soft text-ink">
     <Navigation />
 
-    <main>
+    <main class="relative z-10 overflow-hidden">
       <HeroSection />
       <ExperienceSection :experiences="experiences" />
       <ProjectsSection :projects="projects" />

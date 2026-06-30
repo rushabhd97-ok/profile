@@ -6,9 +6,9 @@ defineProps<{
 </script>
 
 <template>
-  <footer class="bg-ink px-4 py-16 text-white sm:px-6 lg:px-8">
+  <footer class="bg-slate-950 px-4 py-16 text-white sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <div class="grid gap-10 rounded-[2rem] border border-white/10 bg-white/5 p-8 sm:p-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
+      <div class="grid gap-10 rounded-[2rem] border border-white/10 bg-white/6 p-8 sm:p-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
         <div>
           <p class="font-caption-mono text-white/70">Available for new opportunities</p>
           <h3 class="mt-3 text-2xl font-semibold text-white">Let’s build something polished and lasting.</h3>
