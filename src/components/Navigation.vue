@@ -20,7 +20,7 @@ const downloadResume = (fileName = 'Rushabh Dedhia - New Resume.pdf') => {
       : fileName
 
   const link = document.createElement('a')
-  link.href = `/${encodeURIComponent(resolvedFileName)}`
+  link.href = `${import.meta.env.BASE_URL}${encodeURIComponent(resolvedFileName)}`
   link.download = resolvedFileName
   document.body.appendChild(link)
   link.click()
