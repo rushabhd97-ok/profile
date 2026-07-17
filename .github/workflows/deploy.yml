@@ -1,5 +1,6 @@
 name: Deploy Profile Project - GitHub Pages Check
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -23,8 +24,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Project
-        run: npm run build
+      - name: Build and Deploy Project
+        run: npm run build-deploy
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
