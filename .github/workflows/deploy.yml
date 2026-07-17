@@ -1,4 +1,4 @@
-name: Deploy Profile Project
+name: Deploy Profile Project - GitHub Pages
 on:
   push:
     branches:
