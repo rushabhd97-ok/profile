@@ -43,31 +43,41 @@ const skills: Skill[] = [
         description="I bring a pragmatic mix of UI craft, engineering discipline, and collaboration to teams that care about quality and momentum."
       />
 
-      <div class="skill-grid">
-        <div v-for="skillGroup in skills" :key="skillGroup.category" class="skill-card card">
-          <h3>{{ skillGroup.category }}</h3>
-          <div class="skill-card__items">
-            <span v-for="skill in skillGroup.items" :key="skill">{{ skill }}</span>
+      <div class="skill-grid row g-3">
+        <div v-for="skillGroup in skills" :key="skillGroup.category" class="col-12 col-md-6 col-lg-4">
+          <div class="skill-card card h-100 m-0">
+            <h3>{{ skillGroup.category }}</h3>
+            <div class="skill-card__items">
+              <span v-for="skill in skillGroup.items" :key="skill">{{ skill }}</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-card card card--soft">
-          <p>6+</p>
-          <span>Years of experience</span>
+      <div class="stats-grid row g-3 mt-4">
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="stat-card card card--soft h-100 m-0">
+            <p>6+</p>
+            <span>Years of experience</span>
+          </div>
         </div>
-        <div class="stat-card card card--soft">
-          <p>10+</p>
-          <span>Major projects shipped</span>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="stat-card card card--soft h-100 m-0">
+            <p>10+</p>
+            <span>Major projects shipped</span>
+          </div>
         </div>
-        <div class="stat-card card card--soft">
-          <p>3</p>
-          <span>Teams led</span>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="stat-card card card--soft h-100 m-0">
+            <p>3</p>
+            <span>Teams led</span>
+          </div>
         </div>
-        <div class="stat-card card card--soft">
-          <p>15+</p>
-          <span>Technologies used</span>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="stat-card card card--soft h-100 m-0">
+            <p>15+</p>
+            <span>Technologies used</span>
+          </div>
         </div>
       </div>
     </div>
@@ -75,10 +85,7 @@ const skills: Skill[] = [
 </template>
 
 <style scoped>
-.skill-grid {
-  display: grid;
-  gap: 1rem;
-}
+
 
 .skill-card {
   padding: 1.35rem;
@@ -105,11 +112,7 @@ const skills: Skill[] = [
   font-size: 0.9rem;
 }
 
-.stats-grid {
-  display: grid;
-  gap: 0.9rem;
-  margin-top: 1.2rem;
-}
+
 
 .stat-card {
   padding: 1.2rem;
@@ -129,23 +132,5 @@ const skills: Skill[] = [
   color: var(--text-soft);
 }
 
-@media (min-width: 768px) {
-  .skill-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 
-  .stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1100px) {
-  .skill-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
 </style>

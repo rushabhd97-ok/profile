@@ -12,38 +12,40 @@ defineProps<{
 <template>
   <footer class="footer">
     <div class="container footer__inner">
-      <div class="footer__panel card">
-            <div class="footer__intro">
-              <h4>Available for new opportunities</h4>
-              <h3>Let’s build something polished and lasting.</h3>
-              <p>
-                I enjoy working on products where product thinking, polished UI, and reliable engineering all matter.
-              </p>
-            </div>
+      <div class="footer__panel card p-4 p-md-5 mx-0">
+        <div class="row align-items-center g-4 w-100 mx-auto">
+          <div class="footer__intro col-12 col-md text-md-start text-center p-0">
+            <h4>Available for new opportunities</h4>
+            <h3>Let’s build something polished and lasting.</h3>
+            <p>
+              I enjoy working on products where product thinking, polished UI, and reliable engineering all matter.
+            </p>
+          </div>
 
-            <div class="footer__connect">
-              <h4 class="sr-only">Connect</h4>
-              <ul class="social-icons">
-                <li>
-                  <a href="https://linkedin.com/in/rushabh-dedhia-ab108314b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="icon-link">
-                    <IconLinkedin :size="24" />
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/rushabhd97-ok" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" class="icon-link">
-                    <IconGitHub :size="24" />
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:rushabh.lucifer@gmail.com" aria-label="Email" title="Email" class="icon-link">
-                    <IconEmail :size="24" />
-                  </a>
-                </li>
-              </ul>
-            </div>
+          <div class="footer__connect col-12 col-md-auto d-flex justify-content-center p-0">
+            <h4 class="sr-only">Connect</h4>
+            <ul class="social-icons">
+              <li>
+                <a href="https://linkedin.com/in/rushabh-dedhia-ab108314b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="icon-link">
+                  <IconLinkedin :size="24" />
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/rushabhd97-ok" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" class="icon-link">
+                  <IconGitHub :size="24" />
+                </a>
+              </li>
+              <li>
+                <a href="mailto:rushabh.lucifer@gmail.com" aria-label="Email" title="Email" class="icon-link">
+                  <IconEmail :size="24" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div class="footer__meta">
+      <div class="footer__meta d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 mt-4">
         <p>© 2026 Rushabh Dedhia. Crafted with care.</p>
       </div>
     </div>
@@ -61,9 +63,6 @@ defineProps<{
 }
 
 .footer__panel {
-  display: grid;
-  gap: 1.5rem;
-  padding: 1.4rem;
   background: rgba(5, 8, 22, 0.82);
 }
 
@@ -93,9 +92,6 @@ defineProps<{
 }
 
 .footer__meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
   padding-top: 0.7rem;
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.95rem;
@@ -103,7 +99,6 @@ defineProps<{
 
 /* New styles for centered intro and social icons */
 .footer__intro {
-  text-align: center;
 }
 
 .footer__connect {
@@ -152,16 +147,5 @@ defineProps<{
   color: var(--text-soft);
 }
 
-@media (min-width: 900px) {
-  .footer__panel {
-    grid-template-columns: 1fr auto;
-    align-items: center;
-  }
 
-  .footer__meta {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
 </style>

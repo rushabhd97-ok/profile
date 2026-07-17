@@ -7,8 +7,8 @@ const highlights = ['Product-minded frontend engineering', 'Design systems and i
 <template>
   <section id="hero" class="hero-section">
     <div class="hero-section__background" />
-    <div class="container hero-section__content">
-      <div class="hero-section__copy">
+    <div class="container row gy-4 gx-lg-5 align-items-center mx-auto hero-section__content">
+      <div class="hero-section__copy col-12 col-lg-7">
         <div class="hero-badge">
           <span class="hero-badge__dot" />
           Available for product-focused frontend work
@@ -32,7 +32,7 @@ const highlights = ['Product-minded frontend engineering', 'Design systems and i
         </div>
       </div>
 
-      <div class="hero-panel card">
+      <div class="hero-panel card col-12 col-lg-5 mt-lg-0">
         <div class="hero-panel__inner">
           <div class="hero-panel__header">
             <div>
@@ -56,13 +56,13 @@ const highlights = ['Product-minded frontend engineering', 'Design systems and i
           </div>
         </div>
 
-        <div class="hero-panel__stats">
-          <div>
+        <div class="hero-panel__stats row g-2">
+          <div class="col-12 col-sm-6 m-0">
             <p class="hero-panel__eyebrow">Delivery</p>
             <p class="hero-panel__value">6+ years</p>
             <p class="hero-panel__meta">Designing and shipping polished interfaces</p>
           </div>
-          <div>
+          <div class="col-12 col-sm-6 m-0">
             <p class="hero-panel__eyebrow">Impact</p>
             <p class="hero-panel__value">50+ launches</p>
             <p class="hero-panel__meta">Across web platforms, dashboards, and commerce</p>
@@ -90,9 +90,6 @@ const highlights = ['Product-minded frontend engineering', 'Design systems and i
 
 .hero-section__content {
   position: relative;
-  display: grid;
-  gap: 2rem;
-  align-items: center;
 }
 
 .hero-section__copy {
@@ -225,8 +222,6 @@ h1 {
 }
 
 .hero-panel__stats {
-  display: grid;
-  gap: 0.8rem;
   margin-top: 0.9rem;
 }
 
@@ -250,13 +245,5 @@ h1 {
   font-size: 0.95rem;
 }
 
-@media (min-width: 900px) {
-  .hero-section__content {
-    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-  }
 
-  .hero-panel__stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
 </style>

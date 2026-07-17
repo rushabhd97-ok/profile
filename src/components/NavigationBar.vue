@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
         <span>Rushabh Dedhia</span>
       </a>
 
-      <div class="topbar__links">
+      <div class="topbar__links d-none d-md-inline-flex">
         <button
           @click="scrollToSection('experience')"
           :class="{ 'is-active': activeSection === 'experience' }"
@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
 
       <button
         @click="toggleMenu"
-        class="mobile-toggle"
+        class="mobile-toggle d-inline-flex d-md-none"
         aria-label="Toggle navigation menu"
         :aria-expanded="isMenuOpen"
       >
@@ -118,7 +118,7 @@ onBeforeUnmount(() => {
       </button>
     </div>
 
-    <div v-if="isMenuOpen" class="mobile-menu">
+    <div v-if="isMenuOpen" class="mobile-menu d-md-none">
       <button @click="scrollToSection('experience')">Experience</button>
       <button @click="scrollToSection('projects')">Projects</button>
       <button @click="scrollToSection('skills')">Skills</button>
@@ -229,14 +229,5 @@ onBeforeUnmount(() => {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-@media (min-width: 768px) {
-  .topbar__links {
-    display: inline-flex;
-  }
 
-  .mobile-toggle,
-  .mobile-menu {
-    display: none;
-  }
-}
 </style>

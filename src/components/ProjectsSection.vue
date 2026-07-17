@@ -43,42 +43,44 @@ const projectsByYear = computed(() => {
             <div class="project-group__line" />
           </div>
 
-          <div class="project-grid">
-            <article v-for="project in projects" :key="project.id" class="project-card card">
-              <div class="project-card__visual">
-                <div class="project-card__visual-inner">
-                  <p>Featured build</p>
-                  <p>{{ project.title }}</p>
-                </div>
-              </div>
-
-              <div class="project-card__body">
-                <div class="project-card__title-row">
-                  <h4>{{ project.title }}</h4>
-                  <span>Case study</span>
+          <div class="project-grid row g-4">
+            <div v-for="project in projects" :key="project.id" class="col-12 col-md-6">
+              <article class="project-card card h-100 m-0">
+                <div class="project-card__visual">
+                  <div class="project-card__visual-inner">
+                    <p>Featured build</p>
+                    <p>{{ project.title }}</p>
+                  </div>
                 </div>
 
-                <p class="project-card__description">{{ project.description }}</p>
+                <div class="project-card__body">
+                  <div class="project-card__title-row">
+                    <h4>{{ project.title }}</h4>
+                    <span>Case study</span>
+                  </div>
 
-                <div v-if="project.highlights.length > 0" class="project-card__list">
-                  <ul>
-                    <li v-for="(highlight, idx) in project.highlights" :key="idx">
-                      <span class="project-card__bullet" />
-                      <span>{{ highlight }}</span>
-                    </li>
-                  </ul>
+                  <p class="project-card__description">{{ project.description }}</p>
+
+                  <div v-if="project.highlights.length > 0" class="project-card__list">
+                    <ul>
+                      <li v-for="(highlight, idx) in project.highlights" :key="idx">
+                        <span class="project-card__bullet" />
+                        <span>{{ highlight }}</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="project-card__tags">
+                    <span v-for="tag in project.tags" :key="tag">{{ tag }}</span>
+                  </div>
+
+                  <a v-if="project.link" :href="project.link" target="_blank" rel="noopener noreferrer">
+                    View project
+                    <span>→</span>
+                  </a>
                 </div>
-
-                <div class="project-card__tags">
-                  <span v-for="tag in project.tags" :key="tag">{{ tag }}</span>
-                </div>
-
-                <a v-if="project.link" :href="project.link" target="_blank" rel="noopener noreferrer">
-                  View project
-                  <span>→</span>
-                </a>
-              </div>
-            </article>
+              </article>
+            </div>
           </div>
         </div>
       </div>
@@ -112,10 +114,7 @@ const projectsByYear = computed(() => {
   background: rgba(255, 255, 255, 0.12);
 }
 
-.project-grid {
-  display: grid;
-  gap: 1rem;
-}
+
 
 .project-card {
   overflow: hidden;
@@ -236,9 +235,5 @@ const projectsByYear = computed(() => {
   font-weight: 600;
 }
 
-@media (min-width: 900px) {
-  .project-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
+
 </style>

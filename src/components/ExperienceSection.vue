@@ -26,6 +26,8 @@ const travelerHalo = ref<SVGCircleElement | null>(null)
 const nodes = ref<{ x: number; y: number; length: number }[]>([])
 const activeNodeIndex = ref(-1)
 const isInitialized = ref(false)
+const isMobile = ref(false)
+const isSmallMobile = ref(false)
 
 let milestoneEls: HTMLElement[] = []
 let pathLength = 0
@@ -182,6 +184,11 @@ onMounted(() => {
       fgPath.value.style.strokeDasharray = String(pathLength)
       fgPath.value.style.strokeDashoffset = String(pathLength)
     }
+    if (section.value) {
+      const width = section.value.offsetWidth
+      isMobile.value = width < 1024
+      isSmallMobile.value = width < 760
+    }
     updateMilestones()
 
     handleScroll = () => {
@@ -193,7 +200,12 @@ onMounted(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('resize', handleScroll)
 
-    resizeObserver = new ResizeObserver(() => {
+    resizeObserver = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        const width = entries[0].contentRect.width
+        isMobile.value = width < 1024
+        isSmallMobile.value = width < 760
+      }
       pathLength = buildPath()
       if (fgPath.value) {
         fgPath.value.style.strokeDasharray = String(pathLength)
@@ -235,8 +247,21 @@ onMounted(() => {
         description="My work has centered on turning complex product needs into elegant, reliable user experiences that feel calm and effortless."
       />
 
-      <div class="path-layout">
-        <svg ref="pathSvg" class="path-svg" viewBox="0 0 120 3000" preserveAspectRatio="none">
+      <div 
+        class="path-layout" 
+        :style="{ '--path-gutter': isMobile ? (isSmallMobile ? '4.5rem' : '5.5rem') : '1.5rem' }"
+      >
+        <svg 
+          ref="pathSvg" 
+          class="path-svg" 
+          :class="{ 
+            'path-svg--desktop': !isMobile, 
+            'path-svg--mobile': isMobile && !isSmallMobile, 
+            'path-svg--small-mobile': isSmallMobile 
+          }" 
+          viewBox="0 0 120 3000" 
+          preserveAspectRatio="none"
+        >
           <defs>
             <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stop-color="#3b82f6" />
@@ -293,22 +318,36 @@ onMounted(() => {
           <circle ref="traveler" class="traveler" r="8" />
         </svg>
 
-        <div class="milestones">
-          <article v-for="(exp, index) in experiences" :key="exp.id" class="milestone" :class="{ left: index % 2 === 0, right: index % 2 === 1 }">
-            <div class="card">
-              <span class="date">{{ exp.period }}</span>
-              <h3>{{ exp.position }}</h3>
-              <p class="company">{{ exp.company }}</p>
-              <p class="description">{{ exp.description }}</p>
+        <div class="milestones d-flex flex-column gap-5">
+          <article 
+            v-for="(exp, index) in experiences" 
+            :key="exp.id" 
+            class="milestone row align-items-start g-0 position-relative" 
+            :class="index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'"
+          >
+            <!-- Card Column -->
+            <div class="col-12 col-lg-5 p-0 card-col">
+              <div class="card w-100 m-0">
+                <span class="date">{{ exp.period }}</span>
+                <h3>{{ exp.position }}</h3>
+                <p class="company">{{ exp.company }}</p>
+                <p class="description">{{ exp.description }}</p>
 
-              <ul v-if="exp.highlights.length > 0" class="highlights">
-                <li v-for="(highlight, idx) in exp.highlights" :key="idx">{{ highlight }}</li>
-              </ul>
+                <ul v-if="exp.highlights.length > 0" class="highlights">
+                  <li v-for="(highlight, idx) in exp.highlights" :key="idx">{{ highlight }}</li>
+                </ul>
 
-              <div v-if="exp.technologies.length > 0" class="tech-tags">
-                <span v-for="tech in exp.technologies" :key="tech">{{ tech }}</span>
+                <div v-if="exp.technologies.length > 0" class="tech-tags">
+                  <span v-for="tech in exp.technologies" :key="tech">{{ tech }}</span>
+                </div>
               </div>
             </div>
+
+            <!-- Spacer Column (desktop only) -->
+            <div class="col-lg-2 d-none d-lg-block spacer-col"></div>
+
+            <!-- Opposite Column (desktop only, empty) -->
+            <div class="col-lg-5 d-none d-lg-block empty-col"></div>
           </article>
         </div>
       </div>
@@ -327,19 +366,39 @@ onMounted(() => {
   display: block;
   width: min(100vw - 3rem, 1100px);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding-left: var(--path-gutter, 1.5rem);
+  padding-right: 1.5rem;
+  transition: padding-left 0.3s ease;
 }
 
 .path-svg {
   position: absolute;
   top: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+.path-svg--desktop {
   left: 50%;
   transform: translateX(-50%);
   width: 160px;
   height: 100%;
-  overflow: visible;
-  pointer-events: none;
-  z-index: 1;
+}
+
+.path-svg--mobile {
+  left: 0.5rem;
+  transform: none;
+  width: 80px;
+  height: 100%;
+}
+
+.path-svg--small-mobile {
+  left: 0.25rem;
+  transform: none;
+  width: 70px;
+  height: 100%;
 }
 
 .path-bg,
@@ -457,16 +516,11 @@ onMounted(() => {
 }
 
 .milestones {
-  display: grid;
-  gap: 5rem;
   position: relative;
   z-index: 2;
 }
 
 .milestone {
-  display: grid;
-  grid-template-columns: 1fr 160px 1fr;
-  align-items: start;
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -475,20 +529,6 @@ onMounted(() => {
 .milestone.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.milestone.left .card {
-  grid-column: 1;
-  justify-self: end;
-  width: 100%;
-  max-width: 860px;
-}
-
-.milestone.right .card {
-  grid-column: 3;
-  justify-self: start;
-  width: 100%;
-  max-width: 860px;
 }
 
 .card {
@@ -575,62 +615,5 @@ onMounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--text-soft);
   font-size: 0.86rem;
-}
-
-@media (max-width: 1024px) {
-  .path-layout {
-    display: block;
-    width: 100%;
-    padding-left: 5.5rem;
-    padding-right: 1.5rem;
-    margin: 0;
-  }
-
-  .milestone {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .milestone.left .card,
-  .milestone.right .card {
-    grid-column: 1;
-    justify-self: stretch;
-    max-width: 100%;
-  }
-
-  .path-svg {
-    left: 0.5rem;
-    transform: none;
-    width: 80px;
-  }
-
-  .milestone.left .card,
-  .milestone.right .card {
-    padding: 1.8rem;
-  }
-}
-
-@media (max-width: 760px) {
-  .path-layout {
-    padding-left: 4.5rem;
-    padding-right: 1rem;
-  }
-
-  .path-svg {
-    left: 0.25rem;
-    width: 70px;
-  }
-
-  .card {
-    padding: 1.4rem;
-  }
-
-  .description {
-    font-size: 0.98rem;
-  }
-
-  .milestones {
-    gap: 3rem;
-  }
 }
 </style>
