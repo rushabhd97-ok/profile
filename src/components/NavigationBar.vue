@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import ContactModal from './ContactModal.vue'
 
 const isMenuOpen = ref(false)
+const isContactModalOpen = ref(false)
+const activeSection = ref('hero')
+const sections = ['hero', 'experience', 'projects', 'skills']
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -9,6 +13,11 @@ const toggleMenu = () => {
 
 const closeMenu = () => {
   isMenuOpen.value = false
+}
+
+const openContactModal = () => {
+  closeMenu()
+  isContactModalOpen.value = true
 }
 
 const downloadResume = (fileName = 'Rushabh Dedhia - New Resume.pdf') => {
@@ -34,6 +43,35 @@ const scrollToSection = (sectionId: string) => {
     element.scrollIntoView({ behavior: 'smooth' })
   }
 }
+
+const updateActiveSection = () => {
+  const scrollPosition = window.scrollY + 140
+
+  for (const sectionId of sections) {
+    const element = document.getElementById(sectionId)
+
+    if (!element) {
+      continue
+    }
+
+    const top = element.offsetTop
+    const bottom = top + element.offsetHeight
+
+    if (scrollPosition >= top && scrollPosition < bottom) {
+      activeSection.value = sectionId
+      break
+    }
+  }
+}
+
+onMounted(() => {
+  updateActiveSection()
+  window.addEventListener('scroll', updateActiveSection, { passive: true })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', updateActiveSection)
+})
 </script>
 
 <template>
@@ -45,11 +83,26 @@ const scrollToSection = (sectionId: string) => {
       </a>
 
       <div class="topbar__links">
-        <button @click="scrollToSection('experience')">Experience</button>
-        <button @click="scrollToSection('projects')">Projects</button>
-        <button @click="scrollToSection('skills')">Skills</button>
+        <button
+          @click="scrollToSection('experience')"
+          :class="{ 'is-active': activeSection === 'experience' }"
+        >
+          Experience
+        </button>
+        <button
+          @click="scrollToSection('projects')"
+          :class="{ 'is-active': activeSection === 'projects' }"
+        >
+          Projects
+        </button>
+        <button
+          @click="scrollToSection('skills')"
+          :class="{ 'is-active': activeSection === 'skills' }"
+        >
+          Skills
+        </button>
         <button @click="downloadResume('resume.pdf')">Resume</button>
-        <a href="mailto:rushabh.lucifer@gmail.com">Contact</a>
+        <button type="button" @click="openContactModal">Contact</button>
       </div>
 
       <button
@@ -69,9 +122,11 @@ const scrollToSection = (sectionId: string) => {
       <button @click="scrollToSection('experience')">Experience</button>
       <button @click="scrollToSection('projects')">Projects</button>
       <button @click="scrollToSection('skills')">Skills</button>
-      <a href="mailto:rushabh.lucifer@gmail.com">Contact</a>
+      <button type="button" @click="openContactModal">Contact</button>
     </div>
   </nav>
+
+  <ContactModal v-model="isContactModalOpen" />
 </template>
 
 <style scoped>
@@ -137,19 +192,14 @@ const scrollToSection = (sectionId: string) => {
 }
 
 .topbar__links button:hover,
-.topbar__links a:hover,
-.mobile-menu button:hover,
-.mobile-menu a:hover {
+.mobile-menu button:hover {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text);
 }
 
-.topbar__links a,
-.mobile-menu a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
+.topbar__links button.is-active,
+.mobile-menu button.is-active {
+  background: rgba(0, 112, 243, 0.18);
   color: var(--text);
 }
 

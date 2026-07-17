@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Navigation from '@/components/Navigation.vue'
+import NavigationBar from '@/components/NavigationBar.vue'
 import HeroSection from '@/components/HeroSection.vue'
 import ExperienceSection from '@/components/ExperienceSection.vue'
 import ProjectsSection from '@/components/ProjectsSection.vue'
@@ -101,7 +101,7 @@ const projects = [
 
 <template>
   <div class="page-shell">
-    <Navigation />
+    <NavigationBar />
 
     <main>
       <HeroSection />

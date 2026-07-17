@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import IconEmail from './icons/IconEmail.vue'
+import IconGitHub from './icons/IconGitHub.vue'
+import IconLinkedin from './icons/IconLinkedin.vue'
+
 defineProps<{
   title?: string
   description?: string
@@ -22,24 +26,17 @@ defineProps<{
               <ul class="social-icons">
                 <li>
                   <a href="https://linkedin.com/in/rushabh-dedhia-ab108314b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="icon-link">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
-                      <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0H12v2.2h.1c.6-1.1 2-2.2 4.1-2.2 4.4 0 5.2 2.9 5.2 6.6V24H17v-7.2c0-1.7 0-3.9-2.4-3.9-2.4 0-2.7 1.8-2.7 3.8V24H7.5V8z" />
-                    </svg>
+                    <IconLinkedin :size="24" />
                   </a>
                 </li>
                 <li>
                   <a href="https://github.com/rushabhd97-ok" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub" class="icon-link">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
-                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.38-1.34-1.75-1.34-1.75-1.09-.75.08-.74.08-.74 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.48.99.11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23A11.5 11.5 0 0112 6.84c1.02.005 2.05.14 3.01.41 2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.9 1.24 3.22 0 4.61-2.8 5.62-5.47 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z" />
-                    </svg>
+                    <IconGitHub :size="24" />
                   </a>
                 </li>
                 <li>
                   <a href="mailto:rushabh.lucifer@gmail.com" aria-label="Email" title="Email" class="icon-link">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M4 4h16v16H4z" fill="none" />
-                      <path d="M22 6l-10 7L2 6" />
-                    </svg>
+                    <IconEmail :size="24" />
                   </a>
                 </li>
               </ul>
