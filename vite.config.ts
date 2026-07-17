@@ -9,6 +9,9 @@ const isGitHubPages = process.env.GITHUB_ACTIONS === 'true'
 // https://vite.dev/config/
 export default defineConfig({
   base: isGitHubPages ? `/profile/` : '/',
+  server: {
+    port: 3000,
+  },
   plugins: [
     vue(),
     vueDevTools(),

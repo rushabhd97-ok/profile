@@ -22,7 +22,7 @@ const highlights = ['Product-minded frontend engineering', 'Design systems and i
 
         <div class="hero-actions">
           <ButtonLink href="mailto:rushabh.lucifer@gmail.com" variant="primary">Start a conversation</ButtonLink>
-          <ButtonLink href="https://linkedin.com/in/rushabh-dedhia-ab108314b/" variant="secondary">View LinkedIn</ButtonLink>
+          <ButtonLink href="https://linkedin.com/in/rushabh-dedhia-ab108314b/" variant="secondary" target="_blank">View LinkedIn</ButtonLink>
         </div>
 
         <div class="hero-highlights">

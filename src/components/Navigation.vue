@@ -11,6 +11,22 @@ const closeMenu = () => {
   isMenuOpen.value = false
 }
 
+const downloadResume = (fileName = 'Rushabh Dedhia - New Resume.pdf') => {
+  closeMenu()
+
+  const resolvedFileName =
+    fileName.toLowerCase() === 'resume.pdf'
+      ? 'Rushabh Dedhia - New Resume.pdf'
+      : fileName
+
+  const link = document.createElement('a')
+  link.href = `/${encodeURIComponent(resolvedFileName)}`
+  link.download = resolvedFileName
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+
 const scrollToSection = (sectionId: string) => {
   closeMenu()
   const element = document.getElementById(sectionId)
@@ -32,6 +48,7 @@ const scrollToSection = (sectionId: string) => {
         <button @click="scrollToSection('experience')">Experience</button>
         <button @click="scrollToSection('projects')">Projects</button>
         <button @click="scrollToSection('skills')">Skills</button>
+        <button @click="downloadResume('resume.pdf')">Resume</button>
         <a href="mailto:rushabh.lucifer@gmail.com">Contact</a>
       </div>
 
