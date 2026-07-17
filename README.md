@@ -96,12 +96,9 @@ The site includes a Resume button that downloads a PDF from the public folder. I
 
 ## Deployment
 
-This project can be deployed to platforms such as:
+This project is deployed on the platform:
 
-- Vercel
-- Netlify
-- GitHub Pages
-- Any static hosting provider
+- GitHub Pages - https://rushabhd97-ok.github.io/profile/
 
 ## GitHub Showcase Notes
 
