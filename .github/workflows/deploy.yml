@@ -1,4 +1,4 @@
-name: Deploy Profile Project - GitHub Pages Check
+name: Deploy Profile Project - GitHub Pages
 on:
   workflow_dispatch:
   push:
