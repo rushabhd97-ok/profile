@@ -18,7 +18,7 @@ const props = defineProps<{
 const projectsByYear = computed(() => {
   const grouped: { [key: string]: Project[] } = {}
   props.projects.forEach(project => {
-    const year = '2024-2026'
+    const year = '2019-2026'
     if (!grouped[year]) {
       grouped[year] = []
     }
